@@ -1,0 +1,24 @@
+{
+  "name": "graceful-goodbye",
+  "version": "0.0.0",
+  "description": "Run cleanup logic just before the process exits without interfering",
+  "main": "index.js",
+  "browser": "./browser.js",
+  "dependencies": {},
+  "devDependencies": {
+    "standard": "^16.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/graceful-goodbye.git"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/graceful-goodbye/issues"
+  },
+  "homepage": "https://github.com/mafintosh/graceful-goodbye"
+}
