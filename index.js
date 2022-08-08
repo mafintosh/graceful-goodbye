@@ -24,7 +24,7 @@ function onexit () {
   process.removeListener('beforeExit', onexit)
 
   let promise = null
-  const positions = [...map.keys()].sort()
+  const positions = [...map.keys()].sort((a, b) => a - b)
 
   for (const pos of positions) {
     const handlers = map.get(pos)
