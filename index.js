@@ -1,6 +1,6 @@
 module.exports = goodbye
 
-const handlers = []
+const map = new Map()
 
 let exitCode = 0
 let forceExit = false
@@ -22,7 +22,22 @@ function onexit () {
   exiting = true
 
   process.removeListener('beforeExit', onexit)
-  Promise.allSettled(handlers.map(fn => fn())).then(done, done)
+
+  let promise = null
+  const positions = [...map.keys()].sort()
+
+  for (const pos of positions) {
+    const handlers = map.get(pos)
+
+    if (!promise) promise = next()
+    else promise.then(next, next)
+
+    function next () {
+      return Promise.allSettled(handlers.map(fn => fn()))
+    }
+  }
+
+  promise.then(done, done)
 
   function done () {
     if (forceExit) process.exit(exitCode)
@@ -41,13 +56,20 @@ function cleanup () {
   process.removeListener('SIGTERM', onsigterm)
 }
 
-function goodbye (fn) {
-  if (handlers.length === 0) setup()
+function goodbye (fn, position = 0) {
+  if (!map.size) setup()
+  if (!map.has(position)) map.set(position, [])
+
+  const handlers = map.get(position)
   handlers.push(fn)
 
   return function unregister () {
     const i = handlers.indexOf(fn)
     if (i > -1) handlers.splice(i, 1)
-    if (!handlers.length) cleanup()
+
+    if (!handlers.length) {
+      map.delete(position)
+      if (!map.size) cleanup()
+    }
   }
 }
