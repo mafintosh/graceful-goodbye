@@ -22,7 +22,20 @@ function onexit () {
   exiting = true
 
   process.removeListener('beforeExit', onexit)
-  Promise.allSettled(handlers.map(fn => fn())).then(done, done)
+
+  const order = []
+
+  for (const h of handlers.sort((a, b) => b.position - a.position)) {
+    if (!order.length || order[order.length - 1][0].position !== h.position) order.push([])
+    order[order.length - 1].push(h)
+  }
+
+  loop()
+
+  function loop () {
+    if (!order.length) return done()
+    Promise.allSettled(order.pop().map(h => h.fn())).then(loop, loop)
+  }
 
   function done () {
     if (forceExit) process.exit(exitCode)
@@ -41,12 +54,13 @@ function cleanup () {
   process.removeListener('SIGTERM', onsigterm)
 }
 
-function goodbye (fn) {
+function goodbye (fn, position = 0) {
   if (handlers.length === 0) setup()
-  handlers.push(fn)
+  const handler = { position, fn }
+  handlers.push(handler)
 
   return function unregister () {
-    const i = handlers.indexOf(fn)
+    const i = handlers.indexOf(handler)
     if (i > -1) handlers.splice(i, 1)
     if (!handlers.length) cleanup()
   }

@@ -18,7 +18,7 @@ goodbye(async function () {
 
 ## API
 
-#### `const unregister = goodbye(beforeExit)`
+#### `const unregister = goodbye(beforeExit, [position = 0])`
 
 Register an async function to be run before process exit.
 
@@ -32,6 +32,16 @@ All handlers are deregistered when the beforeExit method runs, which means if th
 
 Note that the function is NOT run if the user calls process.exit or if an unhandled error occurs - this is by design.
 Those events should exit the process in the same tick as their occur.
+
+## Position
+
+``` js
+goodbye(async () => console.log('last'), 2)
+goodbye(async () => console.log('first'), 0)
+goodbye(async () => console.log('middle'), 1)
+```
+
+The position value allows you to group handlers, they're executed and awaited by ascending order.
 
 ## License
 
