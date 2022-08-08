@@ -66,7 +66,6 @@ function goodbye (fn, position = 0) {
   return function unregister () {
     const i = handlers.indexOf(fn)
     if (i > -1) handlers.splice(i, 1)
-
     if (!handlers.length) {
       map.delete(position)
       if (!map.size) cleanup()
