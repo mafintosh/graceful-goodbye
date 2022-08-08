@@ -37,7 +37,6 @@ Those events should exit the process in the same tick as their occur.
 
 ``` js
 goodbye(async () => console.log('last'), 2)
-goodbye(async () => console.log('last'), 2)
 goodbye(async () => console.log('first'), 0)
 goodbye(async () => console.log('middle'), 1)
 ```
