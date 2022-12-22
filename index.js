@@ -6,6 +6,7 @@ let exitCode = 0
 let forceExit = false
 let exiting = false
 
+goodbye.exit = onsignal.bind(null, 'SIGINT')
 const onsigint = onsignal.bind(null, 'SIGINT')
 const onsigterm = onsignal.bind(null, 'SIGTERM')
 
@@ -55,11 +56,6 @@ function cleanup () {
 }
 
 function goodbye (fn, position = 0) {
-  if (!fn) {
-    onsignal(null)
-    return
-  }
-
   if (handlers.length === 0) setup()
   const handler = { position, fn }
   handlers.push(handler)

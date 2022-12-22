@@ -43,9 +43,9 @@ goodbye(async () => console.log('middle'), 1)
 
 The position value allows you to group handlers, they're executed and awaited by ascending order.
 
-## Trigger handlers
+## `goodbye.exit()`
 
-Call `goodbye()` with no function to manually trigger the cleanup.
+Triggers the cleanup logic (similar effect to receiving a process signal).
 
 ## License
 
