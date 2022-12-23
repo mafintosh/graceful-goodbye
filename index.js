@@ -6,6 +6,7 @@ let exitCode = 0
 let forceExit = false
 let exiting = false
 
+goodbye.exit = onsignal.bind(null, 'SIGINT')
 const onsigint = onsignal.bind(null, 'SIGINT')
 const onsigterm = onsignal.bind(null, 'SIGTERM')
 

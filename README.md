@@ -33,6 +33,10 @@ All handlers are deregistered when the beforeExit method runs, which means if th
 Note that the function is NOT run if the user calls process.exit or if an unhandled error occurs - this is by design.
 Those events should exit the process in the same tick as their occur.
 
+#### `goodbye.exit()`
+
+Triggers the cleanup logic (similar effect to receiving a process signal).
+
 ## Position
 
 ``` js
