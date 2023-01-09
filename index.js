@@ -1,3 +1,5 @@
+const safetyCatch = require('safety-catch')
+
 module.exports = goodbye
 
 const handlers = []
@@ -34,11 +36,9 @@ function onexit () {
   loop()
 
   function loop () {
-    const errPrinter = err => console.error('Error in graceful-goodbye handler:', err)
-
     const processHandler = h => {
       const res = Promise.resolve(h.fn()) //  guarantee promise, even if handler was sync
-      res.catch(errPrinter)
+      res.catch(safetyCatch)
       return res
     }
 
