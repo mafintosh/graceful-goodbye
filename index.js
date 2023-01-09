@@ -34,8 +34,16 @@ function onexit () {
   loop()
 
   function loop () {
+    const errPrinter = err => console.error('Error in graceful-goodbye handler:', err)
+
+    const processHandler = h => {
+      const res = Promise.resolve(h.fn()) //  guarantee promise, even if handler was sync
+      res.catch(errPrinter)
+      return res
+    }
+
     if (!order.length) return done()
-    Promise.allSettled(order.pop().map(h => h.fn())).then(loop, loop)
+    Promise.allSettled(order.pop().map(processHandler)).then(loop, loop)
   }
 
   function done () {
