@@ -1,6 +1,6 @@
 {
   "name": "graceful-goodbye",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Run cleanup logic just before the process exits without interfering",
   "main": "index.js",
   "browser": "./browser.js",
