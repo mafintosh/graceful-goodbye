@@ -6,7 +6,6 @@ let exitCode = 0
 let forceExit = false
 let exiting = false
 
-goodbye.exit = onsignal.bind(null, 'SIGINT')
 const onsigint = onsignal.bind(null, 'SIGINT')
 const onsigterm = onsignal.bind(null, 'SIGTERM')
 
@@ -65,4 +64,11 @@ function goodbye (fn, position = 0) {
     if (i > -1) handlers.splice(i, 1)
     if (!handlers.length) cleanup()
   }
+}
+
+goodbye.exit = function exit () {
+  forceExit = true
+  process.removeListener('SIGINT', onsigint)
+  process.removeListener('SIGTERM', onsigterm)
+  onexit()
 }
