@@ -4,9 +4,11 @@
   "description": "Run cleanup logic just before the process exits without interfering",
   "main": "index.js",
   "browser": "./browser.js",
-  "dependencies": {},
+  "dependencies": {
+    "safety-catch": "^1.0.2"
+  },
   "devDependencies": {
-    "standard": "^16.0.4"
+    "standard": "^17.0.0"
   },
   "repository": {
     "type": "git",

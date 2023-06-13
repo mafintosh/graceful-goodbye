@@ -1,10 +1,14 @@
+const safetyCatch = require('safety-catch')
+
 module.exports = goodbye
 
 const handlers = []
 
 let exitCode = 0
 let forceExit = false
-let exiting = false
+
+goodbye.exiting = false
+goodbye.exit = exit
 
 const onsigint = onsignal.bind(null, 'SIGINT')
 const onsigterm = onsignal.bind(null, 'SIGTERM')
@@ -18,8 +22,8 @@ function onsignal (name) {
 }
 
 function onexit () {
-  if (exiting) return
-  exiting = true
+  if (goodbye.exiting) return
+  goodbye.exiting = true
 
   process.removeListener('beforeExit', onexit)
 
@@ -34,11 +38,19 @@ function onexit () {
 
   function loop () {
     if (!order.length) return done()
-    Promise.allSettled(order.pop().map(h => h.fn())).then(loop, loop)
+    Promise.allSettled(order.pop().map(run)).then(loop, loop)
   }
 
   function done () {
     if (forceExit) process.exit(exitCode)
+  }
+}
+
+async function run (h) {
+  try {
+    await h.fn()
+  } catch (e) {
+    safetyCatch(e)
   }
 }
 
@@ -66,7 +78,7 @@ function goodbye (fn, position = 0) {
   }
 }
 
-goodbye.exit = function exit () {
+function exit () {
   forceExit = true
   process.removeListener('SIGINT', onsigint)
   process.removeListener('SIGTERM', onsigterm)

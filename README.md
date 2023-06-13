@@ -37,6 +37,10 @@ Those events should exit the process in the same tick as their occur.
 
 Triggers the cleanup logic (similar effect to receiving a process signal).
 
+#### `goodbye.exiting`
+
+Boolean if the exit code is running.
+
 ## Position
 
 ``` js
