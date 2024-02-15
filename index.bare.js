@@ -18,8 +18,7 @@ const sigterm = new Signal('SIGTERM')
 sigint
   .on('signal', () => {
     sigint.stop()
-    // TODO: uncomment
-    // sigint.unref()
+    sigint.unref()
     exitCode = 130
     onexit()
   })
@@ -27,8 +26,7 @@ sigint
 sigterm
   .on('signal', () => {
     sigterm.stop()
-    // TODO: uncomment
-    // sigterm.unref()
+    sigterm.unref()
     exitCode = 130
     onexit()
   })
