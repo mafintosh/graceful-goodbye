@@ -7,7 +7,7 @@ module.exports = goodbye
 const handlers = []
 
 let exitCode = 0
-let forceExit = true // Bare.exit always after teardown loop
+let forceExit = true // Bare.exit after teardown loop
 
 goodbye.exiting = false
 goodbye.exit = exit

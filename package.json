@@ -5,7 +5,7 @@
   "main": "index.js",
   "browser": "./browser.js",
   "dependencies": {
-    "bare-signals": "^2.1.0",
+    "bare-signals": "^2.1.1",
     "safety-catch": "^1.0.2"
   },
   "devDependencies": {
@@ -15,6 +15,14 @@
     "bare-signals": {
       "bare": "bare-signals"
     }
+  },
+  "exports": {
+    ".": [
+      {
+        "bare": "./bare.js",
+        "default": "./index.js"
+      }
+    ]
   },
   "repository": {
     "type": "git",
