@@ -1,3 +1,4 @@
+const process = require('process')
 const safetyCatch = require('safety-catch')
 
 module.exports = goodbye

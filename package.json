@@ -5,6 +5,7 @@
   "main": "index.js",
   "browser": "./browser.js",
   "dependencies": {
+    "bare-process": "^2.1.1",
     "safety-catch": "^1.0.2"
   },
   "devDependencies": {
@@ -13,6 +14,12 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mafintosh/graceful-goodbye.git"
+  },
+  "imports": {
+    "process": {
+      "bare": "bare-process",
+      "default": "process"
+    }
   },
   "scripts": {
     "test": "standard"
