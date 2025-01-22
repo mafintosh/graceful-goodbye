@@ -5,7 +5,7 @@
   "main": "index.js",
   "browser": "./browser.js",
   "dependencies": {
-    "bare-process": "^3.0.0",
+    "bare-process": "^4.0.0",
     "safety-catch": "^1.0.2"
   },
   "devDependencies": {
